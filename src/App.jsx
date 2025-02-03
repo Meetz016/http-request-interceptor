@@ -28,10 +28,6 @@ const Popup = () => {
           for your projects!
         </p>
       </main>
-
-      <footer className="mt-4 text-center text-sm text-gray-500">
-        &copy; 2025 RequestGuard. All rights reserved.
-      </footer>
     </div>
   );
 };
