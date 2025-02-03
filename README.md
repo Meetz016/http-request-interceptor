@@ -1,157 +1,54 @@
 # HTTP Request Interceptor
 
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Chrome Extension](https://img.shields.io/badge/chrome-extension-brightgreen.svg)
+
 ## Overview
 
-This is a lightweight JavaScript library that provides a flexible mechanism for intercepting and modifying HTTP requests across various environments, including browser and Node.js applications.
+The **HTTP Request Interceptor** is a Chrome Extension that empowers developers to monitor and log HTTP and XHR requests made by web pages. This tool is essential for debugging, analyzing network activity, and understanding the data flow within your web applications.
 
 ## Features
 
-- Intercept and modify HTTP requests before they are sent
-- Support for both browser and Node.js environments
-- Easily configurable request interception
-- Ability to add, modify, or remove request headers
-- Customizable request transformation
+- **Intercept Fetch Requests**: Automatically logs all `fetch` API calls initiated by the web page.
+- **Intercept XHR Requests**: Captures and logs all XMLHttpRequest calls, providing detailed information about each request.
+- **User-Friendly Interface**: Easily access and control the extension's functionalities directly from the Chrome toolbar.
 
 ## Installation
 
-### npm
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Meetz016/http-request-interceptor.git
+   cd http-request-interceptor
+   ```
 
-```bash
-npm install http-request-interceptor
-```
+## Load the Extension in Chrome:
 
-### yarn
-
-```bash
-yarn add http-request-interceptor
-```
+1. Open Chrome and navigate to `chrome://extensions/`.
+2. Enable "Developer mode" by toggling the switch in the top right corner.
+3. Click on "Load unpacked" and select the directory where you cloned the repository.
 
 ## Usage
 
-### Basic Interceptor
+### Activate the Extension:
 
-```javascript
-import { Interceptor } from "http-request-interceptor";
+- Click on the extension icon in the Chrome toolbar to open the popup interface.
 
-// Create a new interceptor
-const interceptor = new Interceptor();
+### Monitor Network Requests:
 
-// Add a request interceptor
-interceptor.use((config) => {
-  // Modify request configuration
-  config.headers["Authorization"] = "Bearer your-token";
-  return config;
-});
-```
+- The extension will automatically start logging `fetch` and `XMLHttpRequest` calls made by the active web page.
+- To view the logged requests, open the browser's Developer Console:
+  - On Windows/Linux: Press `Ctrl + Shift + J`
+  - On Mac: Press `Cmd + Option + J`
+- In the console, you'll see detailed logs of each intercepted request, including URLs, methods, headers, and payloads.
 
-### Interceptor Configurations
+## How It Works
 
-#### Browser Environment
-
-```javascript
-// In a browser context
-interceptor.interceptXHR(); // Intercept XMLHttpRequest
-interceptor.interceptFetch(); // Intercept Fetch API
-```
-
-#### Node.js Environment
-
-```javascript
-// In a Node.js context
-interceptor.interceptAxios(); // Intercept Axios requests
-interceptor.interceptNodeFetch(); // Intercept node-fetch
-```
-
-## API Reference
-
-### `Interceptor` Class
-
-- `constructor()`: Initialize a new interceptor instance
-- `use(callback)`: Add an interceptor function
-- `interceptXHR()`: Intercept XMLHttpRequest in browsers
-- `interceptFetch()`: Intercept Fetch API in browsers
-- `interceptAxios()`: Intercept Axios requests in Node.js
-- `interceptNodeFetch()`: Intercept node-fetch in Node.js
-- `eject(interceptor)`: Remove a specific interceptor
-
-### Interceptor Callback
-
-The interceptor callback receives a configuration object and can:
-
-- Modify request headers
-- Add authentication
-- Log request details
-- Transform request payload
-
-## Example Scenarios
-
-### Adding Authentication
-
-```javascript
-interceptor.use((config) => {
-  const token = localStorage.getItem("accessToken");
-  config.headers["Authorization"] = `Bearer ${token}`;
-  return config;
-});
-```
-
-### Logging Requests
-
-```javascript
-interceptor.use((config) => {
-  console.log("Request URL:", config.url);
-  console.log("Request Method:", config.method);
-  return config;
-});
-```
-
-### Conditionally Modifying Requests
-
-```javascript
-interceptor.use((config) => {
-  if (config.url.includes("/api/sensitive")) {
-    config.headers["X-Special-Header"] = "SecureRequest";
-  }
-  return config;
-});
-```
-
-## Error Handling
-
-Interceptors should handle potential errors and return the modified configuration or throw an error if needed.
-
-```javascript
-interceptor.use((config) => {
-  try {
-    // Interceptor logic
-    return config;
-  } catch (error) {
-    console.error("Interception failed", error);
-    throw error;
-  }
-});
-```
-
-## Compatibility
-
-- Browser: Chrome, Firefox, Safari, Edge
-- Node.js: 12.x and above
-- Supports modern HTTP request libraries
-
-## Performance Considerations
-
-- Minimal overhead
-- Lightweight implementation
-- Low memory footprint
+Upon activation, the extension injects a script into the active web page that overrides the native `fetch` and `XMLHttpRequest` methods. This allows the extension to log the details of each request without altering their behavior. The process is seamless and does not interfere with the normal functioning of the web page.
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+We welcome contributions! If you have suggestions for improvements or encounter any issues, please open an issue or submit a pull request. Your feedback helps us enhance the extension for the developer community.
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
